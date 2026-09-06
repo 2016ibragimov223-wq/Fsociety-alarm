@@ -3,7 +3,7 @@ name: Build Alarm APK
 on:
   push:
     branches: [ "main", "master" ]
-  workflow_dispatch: # Позволяет запускать сборку вручную
+  workflow_dispatch:
 
 jobs:
   build:
@@ -18,16 +18,16 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
 
-    - name: Set up Flutter SDK 3.22
+    - name: Set up Flutter SDK
       uses: subosito/flutter-action@v2
       with:
-        flutter-version: '3.22.x'
+        flutter-version: '3.19.6'
         channel: 'stable'
 
     - name: Install dependencies
       run: flutter pub get
 
-    - name: Build APK (Release mode)
+    - name: Build APK
       run: flutter build apk --release --no-tree-shake-icons
 
     - name: Upload APK Artifact
@@ -35,3 +35,4 @@ jobs:
       with:
         name: fsociety-alarm-apk
         path: build/app/outputs/flutter-apk/app-release.apk
+        
